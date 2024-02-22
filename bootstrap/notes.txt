@@ -1,0 +1,40 @@
+Les différents types de s-expr:
+- Les tuples (nommé cons en lisp) (qui peuvent former des listes quand finis d'un null)
+- Atoms
+  |- Null
+  |- Boolean
+  |- Numbers
+  \- String (En vrai le terme approprié serait plutôt symboles)
+
+parseCons = ( parseSexpr . parseSexpr )
+parseSExpr =  parseTuple ou parseAtom
+parseAtom = parseInt ou parseString ou parseBool ou parseNil
+parseNil = ()
+parseBool = #t ou #f
+
+Pensez un petit peu comme pour des variables d'environnement pour l'execution
+
+Let fonctionne en scope c'est à dire que c'est un peu comme pour les fonctions, 
+on n'as pas accès au variables définis dans une fonction en dehors de la fonction
+
+A faire pour les parseur
+====================================
+instance Functor Parser where
+    fmap fct parser = Parser f
+        where f str = ...
+
+instance Applicative Parser where
+    pure x = ...
+    p1 <*> p2 = ...
+
+instance Alternative Parser where
+    empty = ...
+    p1 <|> p2 = parser
+
+instance Monad Parser where
+    return = ...
+    p1 >>= fct = ...
+====================================
+Define ca modifie l'environnement global
+Let l'environnement local
+lambda ca fait des let avec les paramètre pris en arguments
